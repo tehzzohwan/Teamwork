@@ -1,7 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const teamworkRoutes = require('./routes/teamwork.user.routes');
+
 const app = express();
-const port = 3000;
+
+const port = process.env.PORT || 3000; 
 
 app.use(bodyParser.json());
 app.use(
@@ -13,8 +16,9 @@ app.use(
 app.get('/', (request, response) => {
 	response.json({ info: 'we\'re live' });
 });
-  
+
+app.use('/api/v1', teamworkRoutes);
+
 app.listen(port, () => {
 	console.log(`App running on port ${port}.`);
 });
-  
