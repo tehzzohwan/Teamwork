@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const db = require('../configs/db.configs');
 const secret = process.env.SECRET;
 
-verifyToken = (req, res, next) => {
+const verifyToken = (req, res, next) => {
 	const token = req.headers['x-access-token'];
 	if (!token) {
 		return res.status(403).send({
@@ -19,14 +19,15 @@ verifyToken = (req, res, next) => {
 			});
 		}
 		req.role = decoded.role;
+		req.user_id = decoded.user_id;
 		next();
 	});
 };
 
-isAdmin = async (req, res, next) => {
+const isAdmin = async (req, res, next) => {
 	const role = req.role;
 	const findUser = await db.query('SELECT * FROM users WHERE role = $1', [role]);
-	if (findUser.rows[0].role === 'admin') {
+	if (findUser.rows[0].role === 'admin' ) {
 		next();
 	} else {
 		return res.status(403).send({

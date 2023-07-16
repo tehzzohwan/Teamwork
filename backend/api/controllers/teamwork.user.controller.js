@@ -39,20 +39,6 @@ const createDummyUsers = async () => {
 
 createDummyUsers();
 
-const createArticlesTable = async () => {
-    await db.query('DROP TABLE IF EXISTS users');
-	await db.query(`CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, 
-      role VARCHAR(20) NOT NULL, 
-      first_name VARCHAR(50) NOT NULL, 
-      last_name VARCHAR(50) NOT NULL, 
-      email VARCHAR(100) UNIQUE NOT NULL, 
-      password VARCHAR(200) NOT NULL, 
-      gender VARCHAR(20) NOT NULL, 
-      job_role VARCHAR(20) NOT NULL, 
-      department VARCHAR(50) NOT NULL, 
-      address VARCHAR(250) NOT NULL)`);
-};
-
 const getUsers = async (req, res) => {
 	try {
 		const users = await db.query('SELECT * FROM users ORDER BY id ASC ');
@@ -77,14 +63,16 @@ const loginUser = async (req, res) => {
 			const hashedPassword = checkDbForUser.rows[0].password;
 			const comparePassword = bcrypt.compareSync(password, hashedPassword);
 			if (comparePassword) {
-				const token = jwt.sign(
-					{ role: checkDbForUser.rows[0].role },
-					secret,
-					{
-						algorithm: 'HS256',
-						allowInsecureKeySizes: true,
-						expiresIn: 86400, // 24 hours
-					});
+				const token = jwt.sign({ 
+					role: checkDbForUser.rows[0].role, 
+					user_id: checkDbForUser.rows[0].id
+				},
+				secret,
+				{
+					algorithm: 'HS256',
+					allowInsecureKeySizes: true,
+					expiresIn: 86400, // 24 hours
+				});
 				return res.status(200).send({
 					'status': 'success',
 					'data': {
@@ -120,8 +108,8 @@ const createUser = async (req, res) => {
 	try {
 		const insertUser = await db.query(`INSERT INTO users (role, first_name, last_name, email, password, gender, job_role, department, address) 
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`,
-		    [role, first_name, last_name, email, hashedPassword, gender, job_role, department, address]);
-		if (insertUser.rows) {
+		[role, first_name, last_name, email, hashedPassword, gender, job_role, department, address]);
+		if (insertUser.rows[0]) {
 			return res.status(200).json({
 				'status': 'success',
 				'data': {
@@ -135,14 +123,14 @@ const createUser = async (req, res) => {
 		}
 	} catch (err) {
 		return res.status(500).send({
-            'status': 'error',
-            'error': err.message
+			'status': 'error',
+			'error': err.message
 		});
 	}
 };
 
 module.exports = {
 	getUsers,
-    createUser,
+	createUser,
 	loginUser
 };
