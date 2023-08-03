@@ -1,3 +1,6 @@
+require ('dotenv').config();
+const cloudinary = require( 'cloudinary').v2;
+
 const db = require('../configs/db.configs');
 
 const createGifsTable = async () => {
@@ -8,6 +11,8 @@ const createGifsTable = async () => {
       created_on TIMESTAMPTZ NOT NULL DEFAULT NOW(),
       user_id INT NOT NULL
      )`);
+
+	await db.query('INSERT INTO gif (title, image, user_id) VALUES ($1, $2, $3) RETURNING *', ['No time', 'https://printivo.com/blog/wp-content/uploads/2022/01/Sticker.png', 0o0] );
 };
 
 createGifsTable();
@@ -15,9 +20,18 @@ createGifsTable();
 const createGif = async (req, res) => {
 	const  { title, image } = req.body;
 	const user_id = parseInt(req.user_id, 10);
-    
+
 	try {
-		const insertGif = await db.query('INSERT INTO gif (title, image, user_id ) VALUES ($1, $2, $3) RETURNING *', [title, image, user_id]);
+		const cloudinaryImage =await cloudinary.uploader
+			.upload(image)
+			.then(result=> {
+				if (result.url) {
+					return result.url;
+				} else {
+					console.error('Upload failed');
+				}
+			});
+		const insertGif = await db.query('INSERT INTO gif ( title, image, user_id ) VALUES ($1, $2, $3) RETURNING *', [title, cloudinaryImage, user_id]);
 		if (insertGif.rows.length > 0) {
 			return res.status(200).json({
 				'status': 'success',
@@ -45,7 +59,7 @@ const createGif = async (req, res) => {
 
 const deleteGifById = async (req, res) => {
 	const gifId = parseInt(req.params.gifId, 10);
-	const user_id = req.user_id;
+	const user_id = parseInt(req.user_id, 10);
 
 	try{
 		const deleteGif = await db.query('DELETE FROM gif WHERE id = $1 AND user_id = $2 RETURNING *', [ gifId, user_id ]);
@@ -88,24 +102,48 @@ const getAllGifs = async (req, res) => {
 		return res.status(500).json({
 			'status': 'error',
 			'error': err.message
-		});
+		}); 
 	}
 };
 
-const getArticleById = async (req, res) => {
-	const gifId = parseInt(req.params.articleId, 10);
+const getAllGifsById = async (req, res) => {
+	const user_id = parseInt(req.user_id, 10);
 
 	try {
-		const getGif = await db.query('SELECT * FROM article WHERE id = $1', [gifId]);
-		if (getGif.rows.length > 0) {
+		const getGifs = await db.query('SELECT * FROM gif WHERE user_id = $1 ORDER BY id ASC', [ user_id ]);
+		if (getGifs.rows.length > 0) {
 			return res.status(200).json({
 				'status': 'success',
-				'data': getGif.rows
+				'data': getGifs.rows
 			});
 		} else {
 			return res.status(404).json({
 				'status': 'error',
-				'error': 'cannot find article'
+				'error': 'Can\'t find gifs'
+			});
+		}
+	} catch (err) {
+		return res.status(500).json({
+			'status': 'error',
+			'error': err.message
+		});
+	}
+};
+
+const getGifById = async (req, res) => {
+	const gifId = parseInt(req.params.gifId, 10);
+
+	try {
+		const getGif = await db.query('SELECT * FROM gif WHERE id = $1', [gifId]);
+		if (getGif.rows.length > 0) {
+			return res.status(200).json({
+				'status': 'success',
+				'data': getGif.rows[0]
+			});
+		} else {
+			return res.status(404).json({
+				'status': 'error',
+				'error': 'Can\'t find gif'
 			});
 		}
 	} catch (err) {
@@ -120,5 +158,6 @@ module.exports = {
 	createGif,
 	deleteGifById,
 	getAllGifs,
-	getArticleById
+	getAllGifsById,
+	getGifById
 };

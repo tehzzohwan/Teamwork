@@ -80,6 +80,7 @@ const loginUser = async (req, res) => {
 						'last_name': checkDbForUser.rows[0].last_name,
 						'email': checkDbForUser.rows[0].email,
 						'token': token,
+						'role': checkDbForUser.rows[0].role
 					}
 				});
 			} else {

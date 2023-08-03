@@ -9,6 +9,7 @@ const createArticlesTable = async () => {
       category VARCHAR(100) NOT NULL,
       user_id INT NOT NULL
      )`);
+	await db.query('INSERT INTO article (title, article, category, user_id) VALUES ($1, $2, $3, $4) RETURNING *', ['This time', 'lorem ipsus dolor sit amet consectetur adipiscing el aspect', 'sport', 0o0]);
 };
 
 createArticlesTable();
@@ -103,6 +104,30 @@ const deleteArticleById = async (req, res) => {
 	}
 };
 
+const getAllArticlesById = async (req, res) => {
+	const user_id = req.user_id;
+
+	try {
+		const getArticles = await db.query('SELECT * FROM article WHERE user_id = $1 ORDER BY id ASC', [ user_id ]);
+		if (getArticles.rows.length > 0) {
+			return res.status(200).json({
+				'status': 'success',
+				'data': getArticles.rows
+			});
+		} else {
+			return res.status(404).json({
+				'status': 'error',
+				'error': 'cannot find articles'
+			});
+		}
+	} catch (err) {
+		return res.status(500).json({
+			'status': 'error',
+			'error': err.message
+		});
+	}
+};
+
 const getAllArticles = async (req, res) => {
 	try {
 		const getArticles = await db.query('SELECT * FROM article ORDER BY id ASC');
@@ -133,7 +158,7 @@ const getArticleById = async (req, res) => {
 		if (getArticle.rows.length > 0) {
 			return res.status(200).json({
 				'status': 'success',
-				'data': getArticle.rows
+				'data': getArticle.rows[0]
 			});
 		} else {
 			return res.status(404).json({
@@ -154,5 +179,7 @@ module.exports = {
 	patchArticleById,
 	deleteArticleById,
 	getAllArticles,
+	getAllArticlesById,
 	getArticleById
 };
+

@@ -1,5 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+require('dotenv').config();
+const cors = require('cors');
 const teamworkUserRoutes = require('./routes/teamwork.user.routes');
 const teamworkArticleRoutes = require('./routes/teamwork.article.routes');
 const teamworkGifRoutes = require('./routes/teamwork.gif.routes');
@@ -9,10 +11,17 @@ const app = express();
 
 const port = process.env.PORT || 3000; 
 
-app.use(bodyParser.json());
+const corsOptions = {
+	origin: 'http://localhost:3000'
+};
+  
+app.use(cors(corsOptions));
+
+app.use(bodyParser.json({limit: '50mb'}));
 app.use(
 	bodyParser.urlencoded({
 		extended: true,
+		limit: '50mb'
 	})
 );
 
