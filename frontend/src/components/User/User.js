@@ -224,7 +224,7 @@ const User = () => {
                   </Link>
                   <span className="d-flex gap-3 ml-auto">
                     <Link to={`/del/${obj.id}`}>
-                      <button type="button" className="btn btn-outline-danger ml-auto" onClick={ delArticlePost }>Delete</button>
+                      <div  className="btn btn-outline-danger ml-auto">Delete</div>
                     </Link>
                     <button type="button" className="btn btn-outline-warning">Edit</button>
                   </span>

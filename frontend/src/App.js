@@ -78,7 +78,12 @@ const logOut = () => {
           )}
               
           {currentUser && (
-            <div>
+            <div className="navbar-nav">
+              <li className="nav-item">
+                <Link to={"/home"} className="nav-link">
+                  Home
+                </Link>
+              </li>
               <li className="nav-item">
                 <Link to={"/user"} className="nav-link">
                   User
@@ -110,11 +115,11 @@ const logOut = () => {
               </Link>
             </li>
 
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link to={"/register"} className="nav-link">
                 Register
               </Link>
-            </li>
+            </li> */}
           </div>
         )}
           </div>
