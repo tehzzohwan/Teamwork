@@ -54,30 +54,8 @@ const logOut = () => {
           Teamwork
         </Link>
         <div className="navbar-nav mr-auto">
-
-          {showAdminBoard && (
-            <div className="navbar-nav">
-              <li className="nav-item">
-                <Link to={"/home"} className="nav-link">
-                  Home
-                </Link>
-              </li>
-
-              <li className="nav-item">
-                <Link to={"/admin"} className="nav-link">
-                  Admin Board
-                </Link>
-              </li>
-
-              <li className="nav-item">
-                <Link to={"/register"} className="nav-link">
-                  Register
-                </Link>
-              </li>
-            </div>
-          )}
-              
-          {currentUser && (
+               
+        {currentUser && (
             <div className="navbar-nav">
               <li className="nav-item">
                 <Link to={"/home"} className="nav-link">
@@ -87,6 +65,22 @@ const logOut = () => {
               <li className="nav-item">
                 <Link to={"/user"} className="nav-link">
                   User
+                </Link>
+              </li>
+            </div>
+          )}
+
+          {showAdminBoard && (
+            <div className="navbar-nav">
+              <li className="nav-item">
+                <Link to={"/admin"} className="nav-link">
+                  Admin Board
+                </Link>
+              </li>
+
+              <li className="nav-item">
+                <Link to={"/register"} className="nav-link">
+                  Register
                 </Link>
               </li>
             </div>
