@@ -1,4 +1,4 @@
-const API_URL = "master--https://teamwork-backend-290z.onrender.com/api/v1/";
+const API_URL = "https://master--teamwork-backend-290z.onrender.com/api/v1/";
 
 const register = async (inputs) => {
 
