@@ -1,4 +1,4 @@
-const API_URL = "https://master--tehzz-teamwork.netlify.app/api/v1/";
+const API_URL = "https://teamwork-backend-290z.onrender.com/api/v1/";
 
 const register = async (inputs) => {
 
