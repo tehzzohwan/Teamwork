@@ -27,11 +27,11 @@ export default function Gif() {
     
     return (
         <div>
-            <gif className="blog-post d-flex aligns-items-center">
+            <gif className="blog-post center">
                 {Object.values(gifById).map(obj => (
                     obj.image ? 
                         <div key={`image_${obj.id}`}>
-                            <img src={obj.image} className=" d-flex card-img-top rounded justify-content-center" style={{width: "50%", height: "50%"}} alt='...'/>
+                            <img src={obj.image} className=" d-flex card-img-top rounded justify-content-center" style={{width: "50%", height: "auto"}} alt='...'/>
                             <strong className="d-inline-block mb-2 text-primary-emphasis">{obj.title}</strong>
                             <p className="blog-post-meta">{obj.created_on?.substring(0, 10)}</p>
                         </div>
