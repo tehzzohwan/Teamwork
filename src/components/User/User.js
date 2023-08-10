@@ -151,7 +151,7 @@ const User = () => {
           <div className="card shadow-2-strong card-registration p-4 p-md-5 d-flex mr-auto rounded" style={{width: "50rem"}}>
           <h1>Post an article.</h1>
           <div className="card-body">
-            <Form onSubmit={handleArticlePost}>
+            <Form onSubmit={handleArticlePost} className="needs-validaton" noValidate>
               <div className="input-group mb-3">
                 <span className="input-group-text" id="basic-addon1">Title</span>
                 <input 
@@ -163,12 +163,13 @@ const User = () => {
                   onChange={handleChange}
                   placeholder="Your article title here" 
                   aria-label="title" 
-                  aria-describedby="basic-addon1"/>
+                  aria-describedby="basic-addon1"
+                  required />
               </div>
 
               <div className="input-group mb-3">
                 <label className="input-group-text" htmlFor="category">Category</label>
-                <select className="form-select" name="category" value={inputs.category} onChange={handleChange} id="category">
+                <select className="form-select" name="category" value={inputs.category} onChange={handleChange} id="category" required>
                   <option defaultValue>Choose...</option>
                   <option value="Tech">Tech</option>
                   <option value="News">News</option>
@@ -188,6 +189,7 @@ const User = () => {
                   onChange={handleChange}
                   aria-label="With textarea"
                   placeholder="Write here..."
+                  required
                 ></textarea>
               </div>
 
@@ -238,7 +240,7 @@ const User = () => {
           <div className="card shadow-2-strong card-registration p-4 p-md-5 d-flex mr-auto rounded" style={{width: "50rem"}}>
           <h1>Post a gif.</h1>
           <div className="card-body">
-            <Form onSubmit={handleGifPost}>
+            <Form onSubmit={handleGifPost} className="needs-validaton" noValidate>
               <div className="input-group mb-3">
                 <span className="input-group-text" id="basic-addon1">Title</span>
                 <input 
@@ -250,7 +252,8 @@ const User = () => {
                   onChange={handleChangeII}
                   placeholder="Your gif title here" 
                   aria-label="title" 
-                  aria-describedby="basic-addon1"/>
+                  aria-describedby="basic-addon1"
+                  required />
               </div>
 
               <div className="mb-3">
@@ -261,7 +264,8 @@ const User = () => {
                   onChange={handleFileChange}
                   id="formFile" 
                   accept=".jpg, .jpeg, .png"
-                  type="file" />
+                  type="file" 
+                  required />
                   
               </div>
 
