@@ -64,7 +64,7 @@ const logOut = () => {
               </li>
               <li className="nav-item">
                 <Link to={"/user"} className="nav-link">
-                  User
+                  Post
                 </Link>
               </li>
             </div>
