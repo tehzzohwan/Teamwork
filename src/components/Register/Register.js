@@ -86,7 +86,7 @@ const Register = () => {
               <div className="card shadow-2-strong card-registration" style={{borderRadius: "15px"}}>
                 <div className="card-body p-4 p-md-5">
                   <h3 className="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
-                   <Form onSubmit={handleRegister} ref={form}>
+                   <Form onSubmit={handleRegister} ref={form} novalidate>
                     {!successful && (  
                      <div className="row">
                       <div className="col-md-6 mb-4">
@@ -99,8 +99,14 @@ const Register = () => {
                             name="first_name"
                             value={inputs.first_name}
                             onChange={handleChange}
-                            validations={[required]} />
+                            required />
                           <label htmlFor="firstName">First Name</label>
+                          <div class="valid-feedback">
+                            Looks good!
+                          </div>
+                          <div class="invalid-feedback">
+                            This section is required.
+                          </div>
                         </div>
 
                       </div>
