@@ -240,7 +240,7 @@ const User = () => {
           <div className="card shadow-2-strong card-registration p-4 p-md-5 d-flex mr-auto rounded" style={{width: "50rem"}}>
           <h1>Post a gif.</h1>
           <div className="card-body">
-            <Form onSubmit={handleGifPost} className="needs-validaton" noValidate>
+            <Form onSubmit={handleGifPost} className="needs-validaton" novalidate>
               <div className="input-group mb-3">
                 <span className="input-group-text" id="basic-addon1">Title</span>
                 <input 
