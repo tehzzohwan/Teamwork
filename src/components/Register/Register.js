@@ -86,7 +86,7 @@ const Register = () => {
               <div className="card shadow-2-strong card-registration" style={{borderRadius: "15px"}}>
                 <div className="card-body p-4 p-md-5">
                   <h3 className="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
-                   <Form onSubmit={handleRegister} ref={form} novalidate>
+                   <Form className="needs-validation" onSubmit={handleRegister} ref={form} novalidate>
                     {!successful && (  
                      <div className="row">
                       <div className="col-md-6 mb-4">
@@ -120,7 +120,7 @@ const Register = () => {
                             name="last_name"
                             value={inputs.last_name}
                             onChange={handleChange}
-                            validations={[required]} />
+                            required />
                           <label className="form-label" htmlFor="lastName">Last Name</label>
                         </div>
 
@@ -136,7 +136,7 @@ const Register = () => {
                               name="address"
                               value={inputs.address}
                               onChange={handleChange}
-                              validations={[required]} />
+                              required />
                             <label htmlFor="address" className="form-label">Address</label>
                           </div>
 
@@ -217,7 +217,7 @@ const Register = () => {
                               name="email"
                               value={inputs.email}
                               onChange={handleChange}
-                              validations={[required, validEmail]} />
+                              required />
                             <label className="form-label" htmlFor="emailAddress">Email</label>
                           </div>
 
@@ -232,7 +232,7 @@ const Register = () => {
                               name="password"
                               value={inputs.password}
                               onChange={handleChange}
-                              validations={[required, vpassword]} />
+                              required />
                             <label className="form-label" htmlFor="password">Password </label>
                           </div>
 
@@ -240,7 +240,7 @@ const Register = () => {
                       </div><div className="row">
                         <div className="col-6 input-group mb-3">
                           <label className="input-group-text" htmlFor="jobRole">Job Role</label>
-                          <select className="form-select" name="job_role" value={inputs.job_role} onChange={handleChange} id="jobRole">
+                          <select className="form-select" name="job_role" value={inputs.job_role} onChange={handleChange} id="jobRole" required>
                             <option defaultValue>Choose...</option>
                             <option value="manager">Manager</option>
                             <option value="supervisor">Supervisor</option>
@@ -253,7 +253,7 @@ const Register = () => {
 
                        <div className="col-6 input-group mb-3">
                           <label className="input-group-text" htmlFor="department">Department</label>
-                          <select className="form-select" name="department" value={inputs.department} onChange={handleChange} id="department">
+                          <select className="form-select" name="department" value={inputs.department} onChange={handleChange} id="department" required>
                           <option defaultValue>Choose...</option>
                             <option value="human_recources">Human Resources</option>
                             <option value="marketing">Marketing</option>
