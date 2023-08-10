@@ -10,7 +10,7 @@ import User from  './components/User/User';
 import Register from  './components/Register/Register';
 import Profile from  './components/Profile/Profile';
 import Feed from './components/Article';
-import Giff from './components/Gif';
+import Gif from './components/Gif';
 
 import EventBus from "./common/EventBus";
 
@@ -131,7 +131,7 @@ const logOut = () => {
           <Route path="/admin" element={<Admin />} />
           <Route path="/feed" element={<Feed />} />
           <Route path="/feed/:id" element={<Feed />} />
-          <Route path="/gif/:id" element={<Giff />} />
+          <Route path="/gif/:id" element={<Gif />} />
           <Route path="/del/:id" element={<User />} />
         </Routes>
       </div>

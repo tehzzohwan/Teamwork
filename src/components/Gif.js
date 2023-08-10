@@ -7,7 +7,7 @@ import AuthService from "../services/auth.service";
 export default function Gif() {
     const params = useParams();
 
-    const [gifById, setGifById] = useState({});
+    const [gifById, setGifById] = useState("");
     const [successful, setSuccessful] = useState(false);
     const [message, setMessage] = useState("");
     
@@ -29,7 +29,7 @@ export default function Gif() {
         <div>
             <gif className="blog-post">
                 {Object.values(gifById).map(obj => (
-                    (`image_${obj.id}` ) ? 
+                    obj.image ? 
                         <div key={`image_${obj.id}`}>
                             <img src={obj.image} className=" d-flex card-img-top rounded justify-content-center" style={{width: "50%", height: "50%"}} alt='...'/> 
                         </div>
