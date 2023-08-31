@@ -1,4 +1,4 @@
-const API_URL = "https://teamwork-backend-290z.onrender.com/api/v1/";
+const API_URL = "https://teamwork-backend-290z.onrender.com/api/v1/cors";
 
 const register = async (inputs) => {
 
@@ -26,6 +26,7 @@ const login = async (email, password) => {
   try {
     const response = await fetch(API_URL + "auth/login", {
       method: "POST",
+      mode: "cors",
       headers: {
         "Content-Type": "application/json",
       },
@@ -45,6 +46,7 @@ const getFeed = async () => {
     const token = getCurrentUser().token;
     const feed = await fetch(API_URL + "feed", {
       method: "GET",
+      mode: "cors",
       headers: {
         "x-access-token": token
       }
@@ -63,6 +65,7 @@ const postArticle = async (inputs) => {
     const token = getCurrentUser().token;
     const feed = await fetch(API_URL + "articles", {
       method: "POST",
+      mode: "cors",
       headers: {
         "x-access-token": token,
         "Content-Type": "application/json"
@@ -83,6 +86,7 @@ const deleteArticleById = async (id) => {
     const token = getCurrentUser().token;
     const feed = await fetch(API_URL + `articles/${id}`, {
       method: "DELETE",
+      mode: "cors",
       headers: {
         "x-access-token": token,
       },
@@ -101,6 +105,7 @@ const postGif = async (inputs) => {
     const token = getCurrentUser().token;
     const feed = await fetch(API_URL + "gifs", {
       method: "POST",
+      mode: "cors",
       headers: {
         "x-access-token": token,
         "Content-Type": "application/json"
@@ -121,6 +126,7 @@ const getArticleById = async (id) => {
     const token = getCurrentUser().token;
     const feed = await fetch(API_URL + `articles/${id}`, {
       method: "GET",
+      mode: "cors",
       headers: {
         "x-access-token": token
       }
@@ -139,6 +145,7 @@ const getGifById = async (id) => {
     const token = getCurrentUser().token;
     const feed = await fetch(API_URL + `gifs/${id}`, {
       method: "GET",
+      mode: "cors",
       headers: {
         "x-access-token": token
       }
@@ -157,6 +164,7 @@ const getAllGifs = async () => {
     const token = getCurrentUser().token;
     const feed = await fetch(API_URL + `gifs`, {
       method: "GET",
+      mode: "cors",
       headers: {
         "x-access-token": token
       }
@@ -175,6 +183,7 @@ const getAllGifsById = async () => {
     const token = getCurrentUser().token;
     const feed = await fetch(API_URL + `gifs/user`, {
       method: "GET",
+      mode: "cors",
       headers: {
         "x-access-token": token
       }
@@ -192,6 +201,7 @@ const getAllArticles = async () => {
     const token = getCurrentUser().token;
     const feed = await fetch(API_URL + `articles`, {
       method: "GET",
+      mode: "cors",
       headers: {
         "x-access-token": token
       }
@@ -210,6 +220,7 @@ const getAllArticlesById = async () => {
     const token = getCurrentUser().token;
     const feed = await fetch(API_URL + `articles/user`, {
       method: "GET",
+      mode: "cors",
       headers: {
         "x-access-token": token
       }
